@@ -48,7 +48,7 @@ app.get('/room/:id', async (req,res) => {
   let roomDb = await ChatRoom.findById(req.params.id)
   res.status(200).send(roomDb)
 })
-
+//test
 app.post("/create", async (req,res) => {
   let result = await ChatRoom.create(req.body)
   console.log("NEW ROOM:",result)
