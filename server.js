@@ -74,12 +74,14 @@ io.on("connection", (socket) => {
 
   socket.on("chat message", async (msg) => {
     console.log("message room id before DB UPDATE:", msg.ChatRoomID);
-    // console.log("MESSAGE IS SENT TO ROOM: ", socket.handshake.query.chatRoom);
-    io.in(msg.ChatRoomID).emit("new message", msg);
-    await ChatRoom.findByIdAndUpdate(
+    const updatedRoom = await ChatRoom.findByIdAndUpdate(
       { _id: msg.ChatRoomID },
-      { $push: { messages: msg } }
+      { $push: { messages: msg } },
+      {
+        new: true,
+      }
     );
+    io.in(msg.ChatRoomID).emit("new message", updatedRoom);
   });
 });
 
