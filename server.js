@@ -48,7 +48,7 @@ app.get("/:email", async (req, res) => {
 
 app.get("/room/:id", async (req, res) => {
   console.log(req.params.id);
-  let roomDb = await ChatRoom.findById(req.params.id);
+  let roomDb = await ChatRoom.findOne({ _id: req.params.id });
   res.status(200).send(roomDb);
 });
 //test
